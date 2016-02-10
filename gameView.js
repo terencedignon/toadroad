@@ -3,6 +3,17 @@
     window.Logger = {};
   }
 
+  Logger.Pusher = new Pusher('74f1190e2fe3c6780c88', {
+    encrypted: true
+  });
+  Logger.Channel = Logger.Pusher.subscribe('test_channel');
+  Logger.Channel.bind("frog_moved", function(data) {
+    console.log("hello");
+  });
+  Logger.Channel.bind('my_event', function(data) {
+    alert(data.message);
+  });
+
   var GameView = Logger.GameView = function (game, ctx) {
     this.ctx = ctx;
     this.game = game;
@@ -14,7 +25,8 @@
       "w": [0, -1],
       "a": [-1, 0],
       "s": [0,  1],
-      "d": [1,  0]
+      "d": [1,  0],
+      "b": [10, 0]
     };
 
   GameView.prototype.bindKeyHandlers = function () {

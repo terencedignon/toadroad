@@ -12,9 +12,14 @@
     this.gameOver = false;
     this.timer = 60;
 
-    this.addTrucks(20);
-    setInterval(function () {
+    this.addTrucks(5);
+    this.timerInt = setInterval(function () {
       this.timer -= 1;
+
+      if (this.timer < 1) {
+        this.gameOver = true;
+        clearInterval(this.timerInt);
+      }
     }.bind(this), 1000);
   };
 
@@ -147,7 +152,7 @@
     this.setFrogImage();
     this.moveTrucks();
     this.setLivesImage();
-    this.setTimer();
+    // this.setTimer();
     this.setSplats();
     this.drawLevel();
     this.checkCollisions();
