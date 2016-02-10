@@ -12,7 +12,7 @@
 
   </head>
   <body>
-    <canvas></canvas>
+    <canvas id="game"></canvas>
     <script type="text/javascript">
     (function () {
       var canvas = document.getElementsByTagName('canvas')[0];
@@ -23,6 +23,9 @@
       var game = new Logger.Game(ctx);
       new Logger.GameView(game, ctx).start();
 
+
+      $('#game').hide();
+      $('#game').show("slowly");
 
     })();
     </script>

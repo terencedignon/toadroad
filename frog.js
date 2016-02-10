@@ -4,8 +4,9 @@
   }
 
   var Frog = Logger.Frog = function (game) {
-    this.position = [0, 50];
-    this.image = "frog_up1.png";
+    this.position = [350, 120];
+    this.lives = 3;
+    this.image = "frog_down1.png";
     // this.src = ["frog_up1.png, frog_up2.png, frog_up3.png"];
     this.game = game;
   };
@@ -31,8 +32,15 @@
   };
 
   Frog.prototype.move = function (k, direction) {
+    if (this.position[1] >= 600) {
+      this.position = [this.position[0], 0];
+      this.game.upLevel();
+
+    }
+
+
     if (!this.game.gameOver) {
-    console.log(this.position);
+
     if (k === "w") this.moveHelper(k, "frog_up", direction);
     if (k === "s") this.moveHelper(k, "frog_down", direction);
     if (k === "a" || k === "d") {

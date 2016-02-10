@@ -3,12 +3,19 @@
     window.Logger = {};
   }
 
+
   var Truck = Logger.Truck = function (game) {
-    this.image = "car.png";
+    function setRandom (array) {
+        return Math.floor(Math.random() * array.length);
+    }
+
+    var image_array = ["car.png", "police_car.png", "green_car.png", "blue_car.png", "porsche.png", "van.png"];
+    this.image = image_array[setRandom(image_array)];
     this.game = game;
-    var start_positions = [175, 310, 425];
-    // this.position = [-500, start_positions[Math.floor(Math.random() * start_positions.length)]];
-    this.position = [500, 500]
+    this.speed = 10;
+    var start_positions = [185, 310, 425];
+    this.position = [-500, start_positions[Math.floor(Math.random() * start_positions.length)]];
+    // this.position = [500, 500]
     setTimeout(function() {
       setInterval(function() {
         this.setMovement();
@@ -19,17 +26,16 @@
   Truck.prototype.setMovement = function () {
 
     setTimeout(function () {
-      this.image = "car.png";
-      this.position[0] += 5;
+      this.position[0] += this.speed;
     // this.position[1] += 10 * direction[1];
       setTimeout(function () {
-        this.image = "car.png";
-        console.log(this.image);
-        this.position[0] += 5;
+
+
+        this.position[0] += this.speed;
         // this.position[1] += 10 * direction[1];
         setTimeout(function () {
-          this.image = "car.png"
-          this.position[0] += 5;
+
+          this.position[0] += this.speed;
           // this.position[1] += 10 * direction[1];
         }.bind(this), 20);
       }.bind(this), 20);
