@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="application/javascript" src="vendor/keymaster.js"></script>
+    <script type="text/javascript" src="gameView.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="frog.js"></script>
+    <script type="text/javascript" src="truck.js"></script>
+    <title>Logger</title>
+
+  </head>
+  <body>
+    <canvas></canvas>
+    <script type="text/javascript">
+    (function () {
+      var canvas = document.getElementsByTagName('canvas')[0];
+      var ctx = canvas.getContext('2d');
+      canvas.width = 800;
+      canvas.height = 600;
+      document.body.appendChild(canvas);
+      var game = new Logger.Game(ctx);
+      new Logger.GameView(game, ctx).start();
+
+
+    })();
+    </script>
+  </body>
+</html>
