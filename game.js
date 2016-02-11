@@ -3,7 +3,10 @@
     window.Logger = {};
   }
 
+
+
   var Game = Logger.Game = function (ctx) {
+    this.members = [];
     this.level = 1;
     this.ctx = ctx;
     this.splat_positions = [];
@@ -12,32 +15,42 @@
     this.gameOver = false;
     this.timer = 60;
 
-    this.addTrucks(5);
-    this.timerInt = setInterval(function () {
-      this.timer -= 1;
 
-      if (this.timer < 1) {
-        this.gameOver = true;
-        clearInterval(this.timerInt);
-      }
-    }.bind(this), 1000);
+    this.addTrucks(5);
+    // this.timerInt = setInterval(function () {
+    //   this.timer -= 1;
+    //
+    //   if (this.timer < 1) {
+    //     this.gameOver = true;
+    //     clearInterval(this.timerInt);
+    //   }
+    // }.bind(this), 1000);
   };
 
   Game.NUM_TRUCKS = 10;
   // Game.DIM_X = 1000;
   // Game.DIM_Y = 1000;
 
+  // Game.prototype.hello = function () {
+  //   debugger
+  // };
+
+
   Game.prototype.addFrog = function () {
 
-    this.frog = new Logger.Frog(this);
-    // this.add(frog);
-    return this.frog;
+    if (typeof this.frog === "undefined") {
+      this.frog = new Logger.Frog(this);
+      return this.frog;
+    } else {
+      var frog = new Logger.Frog(this);
+      return frog;
+    }
+
 
   };
 
   Game.prototype.addTrucks = function (num) {
     for (var i = 0; i < num; i++) {
-
       this.add(new Logger.Truck({ game: this }));
     }
   };
@@ -72,12 +85,28 @@
 
     };
 
-  Game.prototype.setFrogImage = function (coords) {
-    var frog = new Image();
-    frog.src = this.frog.image;
-    frog.addEventListener("load", function () {
-      this.ctx.drawImage(frog, this.frog.position[0], this.frog.position[1])
+  // Game.prototype.setFrogsImage = function () {
+  //   this.frogs.forEach(function(frog) {
+  //     var frogIMG = new Image();
+  //     frogIMG.src = this.frog.image;
+  //     frogIMG.addEventListener("load", function () {
+  //       this.ctx.drawImage(frogIMG, frog.position[0], frog.position[1])
+  //     }.bind(this));
+  //     }.bind(this));
+  //   });
+  // }
+
+  Game.prototype.setFrogImage = function () {
+
+    this.frogs.concat(this.frog).forEach(function(frog) {
+      var frogIMG = new Image();
+      frogIMG.src = frog.image;
+      frogIMG.addEventListener("load", function () {
+        this.ctx.drawImage(frogIMG, frog.position[0], frog.position[1])
+      }.bind(this));
     }.bind(this));
+
+
   };
 
   Game.prototype.setLivesImage = function () {
@@ -111,6 +140,7 @@
 
 
   Game.prototype.upLevel = function () {
+
     this.level += 1;
     this.trucks.forEach(function(truck) {
       truck.speed *= 1.2;
@@ -147,6 +177,43 @@
   };
 
   Game.prototype.draw = function () {
+
+    Logger.Channel.bind("client-frog_moved", function(data) {
+
+      var frog = this.frogs[this.members.indexOf(data.id)];
+
+      if (frog.move_id !== data.move_id) {
+        frog.position = [data.x, data.y];
+        frog.move(data.k, [data.dx, data.dy]);
+
+      }
+      frog.move_id = data.move_id;
+
+    }.bind(this));
+
+    Logger.Channel.bind("pusher:member_added", function (member) {
+      
+      if (this.members.indexOf(member.id) === -1) {
+
+        var newFrog = this.addFrog();
+        newFrog.id = member.id;
+
+        this.frogs.push(newFrog);
+        this.members.push(member.id);
+
+      }
+    }.bind(this));
+
+    Logger.Channel.bind("pusher:member_removed", function (member) {
+      var remainingFrogs = [];
+      this.members.splice(this.members.indexOf(member.id), 1);
+      this.frogs.forEach(function(frog) {
+        if (frog.id !== member.id) remainingFrogs.push(member);
+      }.bind(this));
+      this.frogs = remainingFrogs;
+    }.bind(this));
+
+
     this.setBackground();
     this.setHeader();
     this.setFrogImage();
@@ -156,17 +223,20 @@
     this.setSplats();
     this.drawLevel();
     this.checkCollisions();
+    this.endGame();
+
+    this.setTrucksImage();
+
+  };
+
+  Game.prototype.endGame = function () {
     if (this.gameOver) {
       var gameOver = new Image();
       gameOver.src = "gameover.png";
       gameOver.addEventListener("load", function () {
         this.ctx.drawImage(gameOver, 30, 50);
       }.bind(this));
-
     }
-
-    this.setTrucksImage();
-
   };
 
   Game.prototype.drawLevel = function () {
@@ -206,7 +276,7 @@
              this.gameOver = true;
            }
            this.splat_positions.push(this.frog.position);
-           this.frog.position = [10000, 10000]
+           this.frog.position = [10000, 50]
            setTimeout(function () {
 
              this.frog.position = [350, 100];

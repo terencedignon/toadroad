@@ -4,14 +4,16 @@
   }
 
   var Frog = Logger.Frog = function (game) {
-    this.position = [350, 120];
+
+    this.position = [Math.random() * 600, Math.random() * 120];
     this.lives = 3;
     this.image = "frog_down1.png";
-    // this.src = ["frog_up1.png, frog_up2.png, frog_up3.png"];
+    this.src = ["frog_up1.png, frog_up2.png, frog_up3.png"];
     this.game = game;
   };
 
   Frog.prototype.moveHelper = function (k, string, direction) {
+
     setTimeout(function () {
     this.image = string + "1.png"
     this.position[0] += 10 * direction[0];
@@ -32,19 +34,21 @@
   };
 
   Frog.prototype.move = function (k, direction) {
-
-    debugger
-    Logger.Channel.trigger("frog_moved", {x: this.position[0], y: this.position[1]});
-
-    if (k === "b") direction = [this.lastDirection[0] * 1.2, this.lastDirection[1] * 1.2];
-    if (this.position[1] >= 600) {
-      this.position = [this.position[0], 0];
-      this.game.upLevel();
+  
+    if (this === this.game.frog) {
+      Logger.Channel.trigger("client-frog_moved", {move_id: Math.random(), dx: direction[0], dy: direction[1], k: k, id: this.id, x: this.position[0], y: this.position[1]});
     }
 
 
+    // if (this.position[1] >= 600) {
+    //
+    //   if (this.id === this.game.frog.id) this.game.upLevel();
+    //   this.position = [this.position[0], 0];
+    //
+    // }
+
+
     if (!this.game.gameOver) {
-    if (k === "b") this.moveHelper(k, "frog_jump", direction);
     if (k === "w") this.moveHelper(k, "frog_up", direction);
     if (k === "s") this.moveHelper(k, "frog_down", direction);
     if (k === "a" || k === "d") {
