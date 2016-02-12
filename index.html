@@ -3,7 +3,8 @@
   <head>
     <style>
       body {
-        /*padding: 20px;*/
+        font-family: arial;
+        padding: 100px;
         /*font-family: "open sans";*/
       }
       .game {
@@ -23,11 +24,13 @@
     <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="frog.js"></script>
     <script type="text/javascript" src="truck.js"></script>
-    <title>Frog</title>
+    <title>Toad Road</title>
 
   </head>
   <body>
 
+    <h1>Toad Road</h1>
+    <h2>Multiplayer Frogger remake for the browser.  Join from another tab to see in action! Move with WASD.
       <canvas id="game"></canvas>
 
 
@@ -47,13 +50,6 @@
     })();
     </script>
 
-    <script>
-    Pusher.log = function(message) {
-  if (window.console && window.console.log) {
-    window.console.log(message);
-  }
-};
 
-</script>
   </body>
 </html>
