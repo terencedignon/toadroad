@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      body {
+        /*padding: 20px;*/
+        /*font-family: "open sans";*/
+      }
+      .game {
+        box-shadow: 20px 20px 0 0 #000;
+
+      }
+
+
+
+    </style>
     <meta charset="utf-8">
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="dist/pusher-js-client-auth.js"></script>
@@ -10,11 +23,14 @@
     <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="frog.js"></script>
     <script type="text/javascript" src="truck.js"></script>
-    <title>Logger</title>
+    <title>Frog</title>
 
   </head>
   <body>
-    <canvas id="game"></canvas>
+
+      <canvas id="game"></canvas>
+
+
     <script type="text/javascript">
     (function () {
       var canvas = document.getElementsByTagName('canvas')[0];
@@ -25,12 +41,12 @@
       var game = new Logger.Game(ctx);
       new Logger.GameView(game, ctx).start();
 
-
       $('#game').hide();
       $('#game').show("slowly");
 
     })();
     </script>
+
     <script>
     Pusher.log = function(message) {
   if (window.console && window.console.log) {

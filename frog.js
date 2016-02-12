@@ -3,14 +3,16 @@
     window.Logger = {};
   }
 
-  var Frog = Logger.Frog = function (game) {
+  var Frog = Logger.Frog = function (game, level) {
 
     this.position = [Math.random() * 600, Math.random() * 120];
     this.lives = 3;
+    this.level = level || 1;
     this.image = "frog_down1.png";
     this.src = ["frog_up1.png, frog_up2.png, frog_up3.png"];
     this.game = game;
   };
+
 
   Frog.prototype.moveHelper = function (k, string, direction) {
 
@@ -34,18 +36,18 @@
   };
 
   Frog.prototype.move = function (k, direction) {
-  
+
     if (this === this.game.frog) {
-      Logger.Channel.trigger("client-frog_moved", {move_id: Math.random(), dx: direction[0], dy: direction[1], k: k, id: this.id, x: this.position[0], y: this.position[1]});
+      Logger.Channel.trigger("client-frog_moved", {move_id: Math.random(), level: this.level, splat_positions: this.game.splats, dx: direction[0], dy: direction[1], k: k, id: this.id, x: this.position[0], y: this.position[1]});
     }
 
 
-    // if (this.position[1] >= 600) {
-    //
-    //   if (this.id === this.game.frog.id) this.game.upLevel();
-    //   this.position = [this.position[0], 0];
-    //
-    // }
+    if (this.position[1] >= 600) {
+
+      if (this.id === this.game.frog.id) this.game.upLevel();
+      this.position = [this.position[0], 0];
+
+    }
 
 
     if (!this.game.gameOver) {

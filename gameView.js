@@ -13,12 +13,12 @@
     }
   });
 
-  Logger.Channel = Logger.Pusher.subscribe('presence-test_channel');
+  Logger.Channel = Logger.Pusher.subscribe('presence-frog_dash');
 
 
-  Logger.Channel.bind('my_event', function(data) {
-    alert(data.message);
-  });
+  // Logger.Channel.bind('my_event', function(data) {
+  //   alert(data.message);
+  // });
 
   var GameView = Logger.GameView = function (game, ctx) {
     this.ctx = ctx;
@@ -36,39 +36,41 @@
     };
 
   GameView.prototype.bindKeyHandlers = function () {
-
     var frog = this.frog;
-
-
-
     Object.keys(GameView.MOVES).forEach(function(k) {
       var move = GameView.MOVES[k];
-      // Logger.Channel.trigger("client-my_event");
       key(k, function () { frog.move(k, move); });
-      // Logger.Channel.trigger("client-frog_moved", {k: k, id: frog.id, x: move[0], y: move[1]});
     }.bind(this));
   };
 
   GameView.prototype.start = function () {
     this.bindKeyHandlers();
     this.lastTime = 0;
-    var setID = setInterval(function () {
 
+    var setID = setInterval(function () {
       if (typeof this.game.frog !== "undefined") {
         Logger.Channel.bind("pusher:subscription_succeeded", function (members) {
-
           this.game.frog.id = Logger.Channel.members.myID;
+          // if (Logger.Channel.members.count > 1) {
+          //
+          //   Logger.Channel.bind("client-get_game", function (data) {
+          //     this.game.trucks = [];
+          //
+          //     data.trucks.forEach(function(truck) {
+          //       this.game.trucks.push(new Logger.Truck(truck));
+          //     }.bind(this));
+          //   }.bind(this));
 
-          Object.keys(Logger.Channel.members.members).forEach(function(member) {
-            if (member !== Logger.Channel.members.myID && this.game.members.indexOf(member) === -1) {
+            Object.keys(Logger.Channel.members.members).forEach(function(member) {
+              if (member !== Logger.Channel.members.myID && this.game.members.indexOf(member) === -1) {
+                var newFrog = this.game.addFrog();
+                newFrog.id = member;
 
-              var newFrog = this.game.addFrog();
-              newFrog.id = member;
-              
-              this.game.frogs.push(newFrog);
-              this.game.members.push(member);
-            }
+                this.game.frogs.push(newFrog);
+                this.game.members.push(member);
+              }
           }.bind(this));
+        
           clearInterval(setID);
         }.bind(this), 3000);
       }
@@ -83,11 +85,15 @@
     this.lastTime = time;
     setTimeout(function() {
       requestAnimationFrame(this.animate.bind(this));
-    }.bind(this), 1000/45);
+    }.bind(this), 1000/60);
+
+    if (this.game.gameOver) {
+      setTimeout(function () {
+        this.game = new Logger.Game(this.ctx);
+        new Logger.GameView(game, this.ctx).start();
+      }.bind(this), 5000);
+    }
   };
-
-
-
 
 
 })();
