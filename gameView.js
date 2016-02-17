@@ -31,8 +31,8 @@
       "w": [0, -1],
       "a": [-1, 0],
       "s": [0,  1],
-      "d": [1,  0]
-
+      "d": [1,  0],
+      "enter": []
     };
 
   GameView.prototype.bindKeyHandlers = function () {
@@ -70,7 +70,7 @@
                 this.game.members.push(member);
               }
           }.bind(this));
-        
+
           clearInterval(setID);
         }.bind(this), 3000);
       }

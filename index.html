@@ -3,21 +3,141 @@
   <head>
     <style>
       body {
-        font-family: arial;
-        padding: 100px;
-        /*font-family: "open sans";*/
-      }
-      .game {
-        box-shadow: 20px 20px 0 0 #000;
+        /*background: black;*/
+        /*margin: 0 auto;*/
+        /*padding: 50px;*/
+        /*background: #f7f7f7;*/
+        background: steelblue;
+        font-family: "lato";
 
+        /*padding: 100px;*/
+        /*
+        -family: "open sans";*/
+      }
+
+      .info {
+        /*width: 50%;*/
+        background: #f7f7f7;
+      }
+
+  /*.header-banner {
+  top: 0;
+  left: 60px;
+  z-index: 999;
+  background: pink;
+  margin-top: -30px;
+  margin-left: -40px;
+  padding-top: 150px;
+  padding-left: 100px;
+  width: 100%;
+  height: 300px;
+}
+
+svg .first-line {
+  x: 5%;
+  y: 100px;
+  font-family: "montserrat";
+  stroke: gold;
+  stroke-width: 3px;
+  font-size: 50px;
+  fill: white;
+}
+
+svg .second-line {
+  x: 5%;
+  y: 300px;
+  font-family: "montserrat";
+  stroke: gold;
+  stroke-width: 3px;
+  font-size: 100px;
+  fill: white;
+}*/
+
+
+    center {
+      width: 780px;
+      height: auto;
+      border-radius: 1%;
+      padding: 20px;
+      background: #fff;
+      /*box-shadow: 10px 5px 0px 5px #ccc;*/
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      width: 75%;
+      display: flex;
+      flex-direction: row;
+      /*margin: 0 auto;*/
+      /*height: 100%;*/
+      display: flex;
+      flex-direction: row;
+    }
+
+      h1 {
+        font-family: "lato";
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.5em;
+        color: #222;
+      }
+
+      h1 a {
+        color: #333;
+        text-decoration: none;
+        opacity: 0.85;
+        padding: 10px;
+        /*box-shadow: 0px 2px 2px 0 #f7f7f7;*/
+      }
+
+      h1 a:hover {
+        color: #000;
+        /*box-shadow: 0px 2px 2px 0 #333;*/
+        opacity: 1;
+      }
+
+      h3 {
+
+      }
+
+
+      .info {
+        width: 50%;
+      }
+
+
+      .sidebar {
+        background: ivory;
+      }
+
+      .links {
+        width: 50%;
+      }
+
+      .game-holder {
+        /*margin: 0 auto;*/
+        /*box-shadow: 20px 20px 0 0 #f7f7f7;*/
+
+      }
+
+      #game {
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        border-radius: 5%;
+        border: 10px solid #f7f7f7;
       }
 
 
 
     </style>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Lato|Candal' rel='stylesheet' type='text/css'>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="dist/pusher-js-client-auth.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="application/javascript" src="vendor/keymaster.js"></script>
     <script type="text/javascript" src="gameView.js"></script>
@@ -28,10 +148,19 @@
 
   </head>
   <body>
+    <center>
 
-    <h1>Toad Road</h1>
-    <h2>Multiplayer Frogger remake for the browser.  Join from another tab to see in action! Move with WASD.
+    <h1><a href="http://terencedignon.com">made by terence dignon</a>
+    <a href="https://github.com/terencedignon/ironfrog"><i class="fa fa-github"></i> Github</a></h1>
+    <hr>
+  <p/>  <h2>Toad Road is multiplayer Frogger! Multiple users can join, move, and level-up in real-time. Control your frog with WASD.
+  </h2>  <hr>
+    <h1><a href="#" target="_blank">Open a new window to see multiplayer in action.</a> </h1>
+
+  </center>
+
       <canvas id="game"></canvas>
+
 
 
     <script type="text/javascript">

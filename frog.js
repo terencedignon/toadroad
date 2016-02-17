@@ -36,11 +36,11 @@
   };
 
   Frog.prototype.move = function (k, direction) {
+    
 
     if (this === this.game.frog) {
       Logger.Channel.trigger("client-frog_moved", {move_id: Math.random(), level: this.level, splat_positions: this.game.splats, dx: direction[0], dy: direction[1], k: k, id: this.id, x: this.position[0], y: this.position[1]});
     }
-
 
     if (this.position[1] >= 600) {
 
