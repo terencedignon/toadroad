@@ -7,7 +7,8 @@
         /*margin: 0 auto;*/
         /*padding: 50px;*/
         /*background: #f7f7f7;*/
-        background: steelblue;
+        background: darkgreen;
+        /*background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Color_icon_green.svg/2000px-Color_icon_green.svg.png");*/
         font-family: "lato";
 
         /*padding: 100px;*/
@@ -54,37 +55,60 @@ svg .second-line {
 }*/
 
 
+    .speech-bubble {
+      display: none;
+      opacity: 0.75;
+      border-radius: 5%;
+      position: absolute;
+      background: #fff;
+      top: 100px;
+      left: 200px;
+      width: 400px;
+      /*height: 400px;*/
+      height: 150px;
+      margin: 0 auto;
+      z-index: 9999;
+
+    }
+
+    .speech-bubble h1 {
+      font-size: 50px;
+      font-family: "candal";
+
+    }
+
     center {
+      /*display:none;*/
+      text-transform: capitalize;
       width: 780px;
       height: auto;
       border-radius: 1%;
       padding: 20px;
-      background: #fff;
-      /*box-shadow: 10px 5px 0px 5px #ccc;*/
+      /*opacity: 0.7;*/
+      color: white;
+      background: #222;
+      background: darkgreen;
+      /*box-shadow: 10px 5px 100px 2px white;*/
       margin: 0 auto;
       margin-bottom: 20px;
     }
 
     .container {
       width: 75%;
-      display: flex;
-      flex-direction: row;
-      /*margin: 0 auto;*/
-      /*height: 100%;*/
-      display: flex;
-      flex-direction: row;
+
     }
 
       h1 {
-        font-family: "lato";
+        font-family: "cabin sketch";
         margin: 0 auto;
+
         text-align: center;
-        font-size: 1.5em;
+        font-size: 3em;
         color: #222;
       }
 
       h1 a {
-        color: #333;
+        color: #fff;
         text-decoration: none;
         opacity: 0.85;
         padding: 10px;
@@ -92,7 +116,7 @@ svg .second-line {
       }
 
       h1 a:hover {
-        color: #000;
+        color: #fff;
         /*box-shadow: 0px 2px 2px 0 #333;*/
         opacity: 1;
       }
@@ -116,9 +140,9 @@ svg .second-line {
       }
 
       .game-holder {
-        /*margin: 0 auto;*/
-        /*box-shadow: 20px 20px 0 0 #f7f7f7;*/
-
+        width: 800px;
+        margin: 0 auto;
+        position: relative;
       }
 
       #game {
@@ -127,14 +151,14 @@ svg .second-line {
         margin-right: auto;
         display: block;
         border-radius: 5%;
-        border: 10px solid #f7f7f7;
+        /*border: 10px solid green;*/
       }
 
 
 
     </style>
     <meta charset="utf-8">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Lato|Candal' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Cabin Sketch|Lato|Candal' rel='stylesheet' type='text/css'>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="dist/pusher-js-client-auth.js"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -147,22 +171,12 @@ svg .second-line {
     <title>Toad Road</title>
 
   </head>
-  <body>
-    <center>
 
-    <h1><a href="http://terencedignon.com">made by terence dignon</a>
-    <a href="https://github.com/terencedignon/toadroad"><i class="fa fa-github"></i> Github</a></h1>
-    <hr>
-  <p/>  <h2>Toad Road is multiplayer Frogger! Multiple users can join, move, and level-up in real-time. Control your frog with WASD.
-  </h2>  <hr>
-    <h1><a href="#" target="_blank">Open a new window to see multiplayer in action.</a> </h1>
-
-  </center>
-
-      <canvas id="game"></canvas>
-
-
-
+      <body>
+        <div class="game-holder">
+          <canvas id="game"></canvas>
+          <div class="speech-bubble">A new player has appeared! (say hi)</div>
+        </div>
     <script type="text/javascript">
     (function () {
       var canvas = document.getElementsByTagName('canvas')[0];
@@ -179,6 +193,16 @@ svg .second-line {
     })();
     </script>
 
+
+        <center>
+
+          <h1><a href="http://terencedignon.com">made by terence dignon</a>
+            <a href="https://github.com/terencedignon/toadroad"><i class="fa fa-github"></i> Github</a></h1>
+            <hr>
+    
+            <h1><a href="#" target="_blank">Open a new window to see multiplayer in action.</a> </h1>
+
+          </center>
 
   </body>
 </html>

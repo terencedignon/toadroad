@@ -4,12 +4,11 @@
   }
 
   var Frog = Logger.Frog = function (game, level) {
-
     this.position = [Math.random() * 600, Math.random() * 120];
     this.lives = 3;
     this.level = level || 1;
-    this.image = "frog_down1.png";
-    this.src = ["frog_up1.png, frog_up2.png, frog_up3.png"];
+    this.image = "./images/frog_down1.png";
+    this.src = ["./images/frog_up1.png", "./images/frog_up2.png", "./images/frog_up3.png"];
     this.game = game;
   };
 
@@ -36,7 +35,7 @@
   };
 
   Frog.prototype.move = function (k, direction) {
-    
+
 
     if (this === this.game.frog) {
       Logger.Channel.trigger("client-frog_moved", {move_id: Math.random(), level: this.level, splat_positions: this.game.splats, dx: direction[0], dy: direction[1], k: k, id: this.id, x: this.position[0], y: this.position[1]});
@@ -51,11 +50,11 @@
 
 
     if (!this.game.gameOver) {
-    if (k === "w") this.moveHelper(k, "frog_up", direction);
-    if (k === "s") this.moveHelper(k, "frog_down", direction);
+    if (k === "w") this.moveHelper(k, "./images/frog_up", direction);
+    if (k === "s") this.moveHelper(k, "./images/frog_down", direction);
     if (k === "a" || k === "d") {
-      if (this.lastMove === "w") this.moveHelper(k, "frog_up", direction);
-      if (this.lastMove === "s") this.moveHelper(k, "frog_sideways", direction);
+      if (this.lastMove === "w") this.moveHelper(k, "./images/frog_up", direction);
+      if (this.lastMove === "s") this.moveHelper(k, "./images/frog_sideways", direction);
       };
     };
     this.lastDirection = direction;

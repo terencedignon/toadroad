@@ -15,16 +15,10 @@
 
   Logger.Channel = Logger.Pusher.subscribe('presence-frog_dash');
 
-
-  // Logger.Channel.bind('my_event', function(data) {
-  //   alert(data.message);
-  // });
-
   var GameView = Logger.GameView = function (game, ctx) {
     this.ctx = ctx;
     this.game = game;
     this.frog = this.game.addFrog();
-
   };
 
   GameView.MOVES = {
@@ -32,7 +26,10 @@
       "a": [-1, 0],
       "s": [0,  1],
       "d": [1,  0],
-      "enter": []
+      "up": [0, -1],
+      "left": [-1, 0],
+      "down": [0, 1],
+      "right": [1, 0]
     };
 
   GameView.prototype.bindKeyHandlers = function () {
@@ -89,8 +86,9 @@
 
     if (this.game.gameOver) {
       setTimeout(function () {
-        this.game = new Logger.Game(this.ctx);
-        new Logger.GameView(game, this.ctx).start();
+        var game = new Logger.Game(this.ctx);
+        new Logger.GameView(game, ctx).start();
+
       }.bind(this), 5000);
     }
   };

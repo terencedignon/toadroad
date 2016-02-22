@@ -15,15 +15,16 @@
     this.timer = 60;
     this.addTrucks(20);
     setTimeout(this.setPusherBindings(), 5000);
-    // this.timerInt = setInterval(function () {
-    //   this.timer -= 1;
-    //
-    //   if (this.timer < 1) {
-    //     this.gameOver = true;
-    //     clearInterval(this.timerInt);
-    //   }
-    // }.bind(this), 1000);
   };
+  //   this.timerInt = setInterval(function () {
+  //     this.timer -= 1;
+  //
+  //     if (this.timer < 1) {
+  //       this.gameOver = true;
+  //       clearInterval(this.timerInt);
+  //     }
+  //   }.bind(this), 1000);
+  // };
 
   Game.NUM_TRUCKS = 10;
   // Game.DIM_X = 1000;
@@ -53,7 +54,6 @@
 
       var frog = this.frogs[this.members.indexOf(data.id)];
       if (frog.move_id !== data.move_id) {
-  
         this.splat_positions.concat(data.splat_positions);
         frog.level = data.level;
         frog.position = [data.x, data.y];
@@ -65,6 +65,10 @@
 
 
     Logger.Channel.bind("pusher:member_added", function (member) {
+      $('.speech-bubble').css("display", "block").html("<h1>A new player has joined!</h1>");
+      setTimeout(function () {
+        $('.speech-bubble').css("display", "none");
+      }.bind(this), 10000);
 
       Logger.Channel.trigger("client-get_game", {trucks: this.trucks});
       if (this.members.indexOf(member.id) === -1) {
@@ -115,7 +119,7 @@
 
   Game.prototype.setBackground = function () {
       var background = new Image();
-      background.src = 'background3.png';
+      background.src = './images/background3.png';
 
       background.addEventListener("load", function () {
         this.ctx.drawImage(background, 0, 0);
@@ -124,7 +128,7 @@
 
     Game.prototype.setHeader = function () {
       var background = new Image();
-      background.src = 'banner2.png';
+      background.src = './images/banner2.png';
 
       background.addEventListener("load", function () {
         this.ctx.drawImage(background, 90, 20);
@@ -153,7 +157,7 @@
       }.bind(this));
       if (frog !== this.frog) {
       var lvlIMG = new Image();
-      lvlIMG.src = frog.level + ".png";
+      lvlIMG.src = "./images/" + frog.level + ".png";
       lvlIMG.addEventListener("load", function () {
         this.ctx.drawImage(lvlIMG, frog.position[0] - 45, frog.position[1] - 35);
       }.bind(this));
@@ -180,7 +184,7 @@
 
   Game.prototype.setLivesImage = function () {
     var heart = new Image();
-    heart.src = "heart.png";
+    heart.src = "./images/heart.png";
 
     if (this.frog.lives === 3) {
     heart.addEventListener("load", function () {
@@ -221,7 +225,7 @@
     if (this.splat_positions.length > 0) {
     this.splat_positions.forEach(function(position) {
       var splat = new Image();
-      splat.src = "splatter.png";
+      splat.src = "./images/splatter.png";
       splat.addEventListener("load", function () {
         this.ctx.drawImage(splat, position[0], position[1]);
       }.bind(this));
@@ -235,7 +239,7 @@
   //   clockString = String(this.timer).split("");
   //   clockString.forEach(function(num) {
   //     var clock = new Image();
-  //     clock.src = num + ".png";
+  //     clock.src = "./images/" + num + ".png";
   //     clock.addEventListener("load", function () {
   //       this.ctx.drawImage(clock, width, 90);
   //       width += 30;
@@ -243,6 +247,14 @@
   //   }.bind(this));
   //
   // };
+
+  Game.prototype.setControls = function () {
+    var gameOver = new Image();
+    gameOver.src = "./images/wasd.png";
+    gameOver.addEventListener("load", function () {
+      this.ctx.drawImage(gameOver, 25, 475);
+    }.bind(this));
+  };
 
   Game.prototype.draw = function () {
 
@@ -258,6 +270,7 @@
     this.checkCollisions();
 
     this.setTrucksImage();
+    this.setControls();
     this.endGame();
 
   };
@@ -265,7 +278,7 @@
   Game.prototype.endGame = function () {
     if (this.gameOver) {
       var gameOver = new Image();
-      gameOver.src = "gameover.png";
+      gameOver.src = "./images/gameover.png";
       gameOver.addEventListener("load", function () {
         this.ctx.drawImage(gameOver, 0, 0);
       }.bind(this));
@@ -275,7 +288,7 @@
 
   Game.prototype.drawLevel = function () {
     var gameOver = new Image();
-    gameOver.src = "lvl" + this.frog.level + ".png";
+    gameOver.src = "./images/lvl" + this.frog.level + ".png";
     gameOver.addEventListener("load", function () {
       this.ctx.drawImage(gameOver, 670, 20);
     }.bind(this));

@@ -15,7 +15,7 @@
 
     if (coinFlip) {
       image_array = [
-        "car.png", "police_car.png", "green_car.png", "blue_car.png", "porsche.png", "van.png"];
+        "./images/car.png", "./images/police_car.png", "./images/green_car.png", "./images/blue_car.png", "./images/porsche.png", "./images/van.png"];
         this.image = options.image || image_array[setRandom(image_array)];
         this.speed = Math.random() * 10;
         randomX = Math.random() * -10000;
@@ -24,7 +24,7 @@
 
     } else {
       image_array = [
-        "car_rev.png", "police_car_rev.png", "green_car_rev.png", "blue_car_rev.png", "porsche_rev.png", "van_rev.png"];
+        "./images/car_rev.png", "./images/police_car_rev.png", "./images/green_car_rev.png", "./images/blue_car_rev.png", "./images/porsche_rev.png", "./images/van_rev.png"];
         this.image = options.image || image_array[setRandom(image_array)];
         this.speed = Math.random() * -10;
         randomX = Math.random() * 20000;
