@@ -7,4 +7,4 @@ Classic from Konami rebuilt for the browser.  Toad Road is a collaborative multi
 
 ![screenshot]
 
-[screenshot]: ./screenshot.png
+[screenshot]: ./images/screenshot.png
