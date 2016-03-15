@@ -54,8 +54,8 @@
     if (k === "up") this.moveHelper(k, "./images/frog_up", direction);
     if (k === "down") this.moveHelper(k, "./images/frog_down", direction);
     if (k === "a" || k ==="left" || k === "d" || k === "right") {
-      if (this.lastMove === "w") this.moveHelper(k, "./images/frog_up", direction);
-      if (this.lastMove === "s") this.moveHelper(k, "./images/frog_sideways", direction);
+      if (this.lastMove === "w" || this.lastMove === "up") this.moveHelper(k, "./images/frog_up", direction);
+      if (this.lastMove === "s" || this.lastMove === "down") this.moveHelper(k, "./images/frog_sideways", direction);
       };
     };
     this.lastDirection = direction;
