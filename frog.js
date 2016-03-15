@@ -31,7 +31,7 @@
       }.bind(this), 50);
     }.bind(this), 50);
     this.image = string + "1.png";
-    if (k === "w" || k === "s") this.lastMove = k;
+    if (k === "w" || k === "s" || k === "up" || k === "down") this.lastMove = k;
   };
 
   Frog.prototype.move = function (k, direction) {
@@ -54,12 +54,13 @@
     if (k === "up") this.moveHelper(k, "./images/frog_up", direction);
     if (k === "down") this.moveHelper(k, "./images/frog_down", direction);
     if (k === "a" || k ==="left" || k === "d" || k === "right") {
-      if (this.lastMove === "w" || this.lastMove === "up") this.moveHelper(k, "./images/frog_up", direction);
-      if (this.lastMove === "s" || this.lastMove === "down") this.moveHelper(k, "./images/frog_sideways", direction);
-      };
-    };
+      if (this.lastMove === "w" || this.lastMove === "up") { this.moveHelper(k, "./images/frog_up", direction); } else
+      if (this.lastMove === "s" || this.lastMove === "down") { this.moveHelper(k, "./images/frog_sideways", direction); }
+      else { this.moveHelper(k, "./images/frog_up", direction); }
+    }
     this.lastDirection = direction;
-  };
+  }
+};
 //
 //
 //
