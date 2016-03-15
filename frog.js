@@ -34,6 +34,7 @@
     if (k === "w" || k === "s" || k === "up" || k === "down") this.lastMove = k;
   };
 
+
   Frog.prototype.move = function (k, direction) {
 
 
